@@ -1,6 +1,5 @@
-## TODO:
-## Student Name:
-## Student ID: 
+## Student Name: Amin Hosseini
+## Student ID: 218926840
 
 # Meeting Slot Suggestion Lab Repository
 

@@ -34,13 +34,16 @@ def suggest_slots(
         end_time = start_time + meeting_duration
         if end_time <= 1020:
             for event in events:
+                if convert_time_to_mins(event['start']) and convert_time_to_mins(event['end']):
                 #Check if > or >=
-                if convert_time_to_mins(event[0]['start']) >= end_time or convert_time_to_mins(event[0]['end']) <= start_time:
-                    list_of_avail_slots.append(start_time)
+                    if convert_time_to_mins(event['start']) >= end_time or convert_time_to_mins(event['end']) <= start_time:
+                        list_of_avail_slots.append(f'{start_time//60}:{start_time%60:02d}')
     return list_of_avail_slots
 
 def convert_time_to_mins(date_str : str) -> int:
     str = date_str.split(':')
     hour = str[0]
     minute = str[1]
+    if int(hour) > 24 or int(minute) > 60 or int(hour) <0 or int(minute) < 0:
+        return false
     return (hour * 60) + (minute)

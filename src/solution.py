@@ -27,4 +27,20 @@ def suggest_slots(
         List of valid start times as "HH:MM" sorted ascending
     """
     # TODO: Implement this function
-    raise NotImplementedError("suggest_slots function has not been implemented yet")
+    #Assuming the slots occur every 15 minutes
+    list_of_slots = [(15*i)+540 for i in range(0, 32)]
+    list_of_avail_slot = []
+    for start_time in list_of_slots:
+        end_time = start_time + meeting_duration
+        if end_time <= 1020:
+            for event in events:
+                #Check if > or >=
+                if convert_time_to_mins(event[0]['start']) >= end_time or convert_time_to_mins(event[0]['end']) <= start_time:
+                    list_of_avail_slots.append(start_time)
+    return list_of_avail_slots
+
+def convert_time_to_mins(date_str : str) -> int:
+    str = date_str.split(':')
+    hour = str[0]
+    minute = str[1]
+    return (hour * 60) + (minute)

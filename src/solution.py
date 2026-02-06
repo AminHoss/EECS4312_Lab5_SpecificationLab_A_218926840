@@ -1,5 +1,5 @@
-## Student Name:
-## Student ID: 
+## Student Name: Amin Hosseini
+## Student ID: 218926840
 
 """
 Stub file for the meeting slot suggestion exercise.

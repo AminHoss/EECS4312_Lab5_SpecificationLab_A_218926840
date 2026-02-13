@@ -87,6 +87,12 @@ def test_that_last_is_five_o_clock():
 
     assert slots[-1] == '17:00'
 
+def no_friday_after+15():
+    events = []
+    slots = suggest_slots(events, meeting_duration=15, day="2026-02-01")
+
+    assert 15:00 not in slots
+
 def test_that_fake_time_is_not_accepted():
     events = [{'start': '9:69', 'end': ' 11:00'}]
     slots = suggest_slots(events, meeting_duration=15, day="2026-02-01")

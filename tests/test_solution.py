@@ -87,9 +87,9 @@ def test_that_last_is_five_o_clock():
 
     assert slots[-1] == '17:00'
 
-def no_friday_after+15():
+def no_friday_after_15():
     events = []
-    slots = suggest_slots(events, meeting_duration=15, day="2026-02-01")
+    slots = suggest_slots(events, meeting_duration=15, day="2026-02-013")
     test_cases = [f'{x//60:02d}:{x%60:02d}' for x in range(900, 1020, 15)]
     for test in test_cases:
         assert test not in slots

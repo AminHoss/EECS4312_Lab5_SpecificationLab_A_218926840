@@ -67,36 +67,38 @@ def test_lunch_break_blocks_all_slots_during_lunch():
 
 def test_that_meeting_is_in_15m_slots():
     events = []
-    slots = suggest_slots(event, meeting_duration=15, day="2026-02-01")
-
-    test_cases = [f'{x//60}:{x%60}' if x%15 !=0 in range(540, 1020)]
+    test_cases = []
+    slots = suggest_slots(events, meeting_duration=15, day="2026-02-01")
+    for x in range(540, 1020):
+        if x % 15 != 0: 
+            test_cases.append(f'{x//60:02d}:{x%60:02d}' )
     for test_case in test_cases:
         assert test_case not in slots
 
 def test_that_first_is_nine_o_clock():
     events = []
-    slots = suggest_slots(event, meeting_duration=15, day="2026-02-01")
+    slots = suggest_slots(events, meeting_duration=15, day="2026-02-01")
 
-    assert slots[0] == '9:00'
+    assert slots[0] == '09:00'
 
 def test_that_last_is_five_o_clock():
     events = []
-    slots = suggest_slots(event, meeting_duration=15, day="2026-02-01")
+    slots = suggest_slots(events, meeting_duration=15, day="2026-02-01")
 
-    assert slots[0] == '17:00'
+    assert slots[-1] == '17:00'
 
 def test_that_fake_time_is_not_accepted():
-    events = [{start: '9:69', end: ' 11:00'}]
-    slots = suggest_slots(event, meeting_duration=15, day="2026-02-01")
+    events = [{'start': '9:69', 'end': ' 11:00'}]
+    slots = suggest_slots(events, meeting_duration=15, day="2026-02-01")
 
-    test_cases = [f'{x//60}:{x%60}' for x in range(600, 661, 15)]
+    test_cases = [f'{x//60:02d}:{x%60:02d}' for x in range(600, 661, 15)]
     for test in test_cases:
         assert test in slots
 
 def test_that_negative_time_does_not_give_error():
-    events = [{start: '-9:-69', end: ' -11:-00'}]
-    slots = suggest_slots(event, meeting_duration=15, day="2026-02-01")
+    events = [{'start': '-9:-69', 'end': ' -11:-00'}]
+    slots = suggest_slots(events, meeting_duration=15, day="2026-02-01")
 
-    test_cases = [f'{x//60}:{x%60}' for x in range(600, 661, 15)]
+    test_cases = [f'{x//60:02d}:{x%60:02d}' for x in range(600, 661, 15)]
     for test in test_cases:
         assert test in slots

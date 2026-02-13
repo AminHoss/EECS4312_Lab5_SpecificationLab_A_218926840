@@ -48,6 +48,9 @@ def suggest_slots(
                     if not convert_time_to_mins(event['start']) >= end_time and not convert_time_to_mins(event['end']) < start_time:
                         cond = 1
                     print(f"{start_time} with {meeting_duration} not is available due to {event} \n")
+                if day.lower() =="Friday":
+                    if start_time > 900:
+                        cond =1
             if cond == 0:
                 list_of_avail_slots.append(f'{start_time//60:02d}:{start_time%60:02d}')
     print(list_of_avail_slots)
@@ -59,4 +62,5 @@ def convert_time_to_mins(date_str : str) -> int:
     minute = str[1]
     if int(hour) > 24 or int(minute) > 60 or int(hour) <0 or int(minute) < 0:
         return -5
+    return (int(hour) * 60) + int(minute)
     return (int(hour) * 60) + int(minute)
